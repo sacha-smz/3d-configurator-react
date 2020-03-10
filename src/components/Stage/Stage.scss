@@ -1,0 +1,7 @@
+@import "../../sass/utils/variables";
+
+.stage {
+  display: flex;
+  height: calc(100vh - #{$header-height});
+  background-color: pink;
+}
