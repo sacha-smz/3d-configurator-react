@@ -1,0 +1,7 @@
+.configurator {
+  display: flex;
+  height: calc(100vh - 4rem);
+  background-color: #ffc9d3;
+}
+
+/*# sourceMappingURL=Configurator.css.map */

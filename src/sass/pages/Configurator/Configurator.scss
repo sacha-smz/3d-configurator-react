@@ -1,0 +1,9 @@
+@use "sass:color";
+
+@use "../../utils/variables" as v;
+
+.configurator {
+  display: flex;
+  height: calc(100vh - #{v.$header-height});
+  background-color: color.scale(pink, $lightness: +15%);
+}

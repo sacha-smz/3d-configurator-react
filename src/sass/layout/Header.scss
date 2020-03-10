@@ -1,9 +1,9 @@
-@import "../../sass/utils/variables";
+@use "../utils/variables" as v;
 
 .header {
   display: flex;
-  height: $header-height;
-  padding: 0.8rem;
+  height: v.$header-height;
+  padding: 0.4rem 0.8rem;
   box-sizing: border-box;
 
   &__logo {

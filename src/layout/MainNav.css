@@ -1,0 +1,12 @@
+.header__nav ul > li {
+  display: inline-block;
+  list-style-type: noce;
+}
+.header__nav ul > li > a {
+  text-decoration: none;
+}
+.header__nav ul > li ~ li {
+  margin-left: 0.6rem;
+}
+
+/*# sourceMappingURL=MainNav.css.map */

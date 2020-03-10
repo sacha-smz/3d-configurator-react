@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  height: 4rem;
+  padding: 0.4rem 0.8rem;
+  box-sizing: border-box;
+}
+.header__logo {
+  max-height: 100%;
+}
+.header__nav {
+  margin-left: auto;
+}
+
+/*# sourceMappingURL=Header.css.map */
