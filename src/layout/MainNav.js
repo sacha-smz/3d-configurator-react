@@ -1,4 +1,7 @@
 import React from "react";
+
+import { NavLink } from "react-router-dom";
+
 import "./MainNav.css";
 
 function MainNav() {
@@ -6,10 +9,10 @@ function MainNav() {
     <nav className="header__nav">
       <ul>
         <li>
-          <a href="#top">Home</a>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <a href="#top">Admin</a>
+          <NavLink to="/3d-configurator">Configurateur 3D</NavLink>
         </li>
       </ul>
     </nav>
