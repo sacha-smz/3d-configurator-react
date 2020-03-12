@@ -1,14 +1,9 @@
 @mixin inline-list {
   & > li {
     display: inline-block;
-    list-style-type: noce;
-
-    & > a {
-      text-decoration: none;
-    }
   }
 
   & > li ~ li {
-    margin-left: 0.6rem;
+    margin-left: 1.6rem;
   }
 }

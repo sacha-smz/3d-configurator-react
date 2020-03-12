@@ -2,11 +2,10 @@
   flex-grow: 2;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  column-gap: 0.4rem;
 }
 .configurator__stage {
   display: flex;
-  background-color: #ffc9d3;
+  background-color: #c2d4dd;
 }
 .configurator__stage canvas {
   margin: auto;
@@ -19,30 +18,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #6666ff;
+  background-color: #b0aac0;
 }
 .configurator__control-panel button {
   position: relative;
-  background-color: #0000f2;
-  color: white;
+  background-color: #ddeedd;
   font-size: 1.15rem;
   font-weight: bold;
   padding: 0.8rem 2rem;
   text-transform: uppercase;
   border-radius: 1.6rem;
   overflow: hidden;
-  border: none;
+  box-shadow: 0.08rem 0.16rem 0.24rem 0 #282828;
   transform: scale(1);
-  transition: scale 0.8s, color 1.2s, font-weight 1.2s;
-  box-shadow: 0.08rem 0.16rem 0.24rem 0 #111;
+  color: #8980a1;
+  transition: scale 0.8s, color 1.2s;
+}
+.configurator__control-panel button span {
+  position: relative;
+  z-index: 2;
+}
+.configurator__control-panel button:active::after {
+  background-color: #b0aac0;
 }
 .configurator__control-panel button:focus {
   outline: none;
 }
 .configurator__control-panel button:hover {
-  color: #0000f2;
+  color: #f0efef;
   transform: scale(1.15);
-  font-weight: bolder;
 }
 .configurator__control-panel button:hover::after {
   opacity: 1;
@@ -50,14 +54,14 @@
 .configurator__control-panel button::after {
   content: "";
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: white;
+  background-color: #8980a1;
   opacity: 0;
-  transition: opacity 1.5s;
+  transition: opacity 1.2s;
 }
 
 /*# sourceMappingURL=Configurator.css.map */

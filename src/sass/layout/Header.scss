@@ -1,10 +1,12 @@
-@use "../utils/variables" as v;
+@use "../utils/mixins" as m;
+@use "../utils/functions" as f;
 
 .header {
   display: flex;
-  height: v.$header-height;
-  padding: 0.4rem 0.8rem;
-  box-sizing: border-box;
+  align-items: center;
+  height: 4rem;
+  padding: 0.4rem 1.4rem;
+  background-color: f.getColor("main", "alpha");
 
   &__logo {
     max-height: 100%;
@@ -12,5 +14,16 @@
 
   &__nav {
     margin-left: auto;
+    color: f.getDarkColor("main", "delta");
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    ul {
+      @include m.inline-list;
+
+      a.current-url {
+        color: f.getDarkColor("main", "default");
+      }
+    }
   }
 }

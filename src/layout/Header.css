@@ -1,14 +1,27 @@
 .header {
   display: flex;
+  align-items: center;
   height: 4rem;
-  padding: 0.4rem 0.8rem;
-  box-sizing: border-box;
+  padding: 0.4rem 1.4rem;
+  background-color: #f0efef;
 }
 .header__logo {
   max-height: 100%;
 }
 .header__nav {
   margin-left: auto;
+  color: #8980a1;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.header__nav ul > li {
+  display: inline-block;
+}
+.header__nav ul > li ~ li {
+  margin-left: 1.6rem;
+}
+.header__nav ul a.current-url {
+  color: #202020;
 }
 
 /*# sourceMappingURL=Header.css.map */

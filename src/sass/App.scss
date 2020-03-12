@@ -1,9 +1,9 @@
+@use "./utils/functions" as f;
+
 #top {
   display: flex;
   flex-direction: column;
   height: 100vh;
   min-height: 48rem;
-  color: #282828;
+  color: f.getColor("main", "default");
 }
-
-/*# sourceMappingURL=App.css.map */
