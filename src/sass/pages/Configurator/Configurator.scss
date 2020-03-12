@@ -40,7 +40,7 @@
 
       transform: scale(1);
       color: f.getDarkColor("main", "delta");
-      transition: scale 0.8s, color 1.2s;
+      transition: all 1s;
 
       span {
         position: relative;
@@ -77,7 +77,7 @@
         background-color: f.getDarkColor("main", "delta");
 
         opacity: 0;
-        transition: opacity 1.2s;
+        transition: opacity 1s;
       }
     }
   }

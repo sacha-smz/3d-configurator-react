@@ -6,6 +6,9 @@
   background-color: #f0efef;
 }
 .header__logo {
+  height: 100%;
+}
+.header__logo img {
   max-height: 100%;
 }
 .header__nav {
