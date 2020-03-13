@@ -4,6 +4,9 @@
   grid-template-columns: 2fr 1fr;
 }
 .configurator__stage {
+  position: relative;
+  z-index: 1;
+  grid-area: 1/1/1/1;
   display: flex;
   background-color: #c2d4dd;
 }
@@ -13,6 +16,40 @@
 }
 .configurator__stage canvas:focus {
   outline: none;
+}
+.configurator__model-gallery {
+  position: relative;
+  width: 100%;
+  margin: auto auto 1.4rem;
+  pointer-events: none;
+  z-index: 2;
+  grid-area: 1/1/1/1;
+  display: flex;
+  justify-content: center;
+}
+.configurator__model-gallery button {
+  pointer-events: auto;
+  width: 18%;
+  border-radius: 0.8rem;
+  background-color: #b0aac0;
+  opacity: 0.82;
+  padding: 1% 0;
+  transform: scale(1);
+  transition: all 100ms 60ms;
+}
+.configurator__model-gallery button:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+.configurator__model-gallery button:active {
+  transform: scale(0.98);
+  transition: all 60ms 0ms;
+}
+.configurator__model-gallery button img {
+  max-width: 100%;
+}
+.configurator__model-gallery button ~ button {
+  margin-left: 1.4%;
 }
 .configurator__control-panel {
   display: flex;

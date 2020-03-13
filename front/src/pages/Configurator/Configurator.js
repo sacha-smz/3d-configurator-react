@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import Scene from "./utils/Scene.js";
+import Scene from "./utils/Scene";
 
 import "./Configurator.css";
 
-import Stage from "./Stage.js";
-import ControlPanel from "./ControlPanel.js";
+import Stage from "./Stage";
+import ModelGallery from "./ModelGallery";
+import ControlPanel from "./ControlPanel";
 
 const scene = new Scene();
 
@@ -47,6 +48,7 @@ function Configurator() {
   return (
     <section className="configurator">
       <Stage />
+      <ModelGallery />
       <ControlPanel onChangeColor={scene.changeObjectColor} />
     </section>
   );

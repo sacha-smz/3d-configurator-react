@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "destyle.css";
 import "./App.css";
 
-import Header from "./layout/Header.js";
-import Configurator from "./pages/Configurator/Configurator.js";
+import Header from "./layout/Header";
+import Configurator from "./pages/Configurator/Configurator";
 
 function App() {
   return (

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../static/img/vto_logo.svg";
 
-import MainNav from "./MainNav.js";
+import MainNav from "./MainNav";
 
 function Header() {
   return (
