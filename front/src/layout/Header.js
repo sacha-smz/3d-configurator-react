@@ -9,7 +9,7 @@ import MainNav from "./MainNav.js";
 function Header() {
   return (
     <header className="header">
-      <Link exact to="/" className="header__logo">
+      <Link to="/" className="header__logo">
         <img src={logo} alt="Logo VTO Virtual Try On FR" />
       </Link>
       <MainNav />
