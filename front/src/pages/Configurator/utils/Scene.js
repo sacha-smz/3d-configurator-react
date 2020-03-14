@@ -1,13 +1,19 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+
+const modelsPath = process.env.REACT_APP_API_URL + "models/";
 
 export default class Scene {
   constructor() {
     this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     this.camera = new THREE.PerspectiveCamera(20, 1, 1, 8000);
     this.instance = new THREE.Scene();
-    this.objects = new THREE.Object3D();
-    this.add(this.objects);
+    this.loader = new FBXLoader();
+    this.models = new THREE.Object3D();
+    this.spots = new THREE.Object3D();
+    this.currentModelId = -1;
+    this.add(this.models);
 
     this.setup();
   }
@@ -20,14 +26,45 @@ export default class Scene {
     container.appendChild(this.renderer.domElement);
   }
 
-  changeObjectColor = () => {
-    const object = this.objects.children[0];
-    const objectColor = object.material.color;
-    let offset = 0;
-    while (offset < 0.2) {
-      offset = Math.random();
+  changeModelColor = () => {
+    if (this.currentModelId === -1) {
+      return;
     }
-    objectColor.set(objectColor.offsetHSL(offset, 0, 0));
+
+    const group = this.models.children[this.currentModelId];
+
+    group.traverse(child => {
+      if (child.isMesh) {
+        const materials = Array.isArray(child.material) ? child.material : [child.material];
+
+        materials.forEach(material => {
+          material.color.setHSL(Math.random(), 0.6, 0.8);
+        });
+      }
+    });
+  };
+
+  loadModel = modelName => {
+    const models = this.models.children;
+    const modelsCount = models.length;
+
+    let newModel = true;
+    for (let i = 0; i < modelsCount; i++) {
+      if (models[i].name === modelName) {
+        models[i].visible = true;
+        this.currentModelId = i;
+        newModel = false;
+      } else {
+        models[i].visible = false;
+      }
+    }
+    if (newModel) {
+      this.loader.load(modelsPath + modelName + "/001.fbx", object => {
+        object.name = modelName;
+        this.currentModelId = modelsCount;
+        this.models.add(object);
+      });
+    }
   };
 
   updateSize(width, height) {
@@ -39,11 +76,11 @@ export default class Scene {
   setup() {
     const white = new THREE.Color(0xffffff);
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setClearColor(white);
+    this.renderer.setClearColor(0xf0efef);
 
-    const spotIntensity = 0.4;
-    const ambientIntensity = 0.35;
-    const spotHeight = 0.6;
+    const spotIntensity = 0.1;
+    const ambientIntensity = 0.6;
+    const spotHeight = 0.8;
     const spots = [];
 
     const ambientLight = new THREE.AmbientLight(white, ambientIntensity);
@@ -65,9 +102,8 @@ export default class Scene {
     spot4.position.set(1, spotHeight, -1);
     spots.push(spot4);
 
-    const spotParent = new THREE.Object3D();
     spots.forEach(spot => {
-      spotParent.add(spot);
+      this.spots.add(spot);
     });
 
     const pointIntensity = 0.575;
@@ -75,11 +111,11 @@ export default class Scene {
     pointLight.position.set(0, 33, 100);
     pointLight.shadow.mapSize.x = 1024;
     pointLight.shadow.mapSize.y = 1024;
-    spotParent.add(pointLight);
+    this.spots.add(pointLight);
 
     const startSpotRy = Math.PI / 5;
-    spotParent.rotation.y = startSpotRy;
-    this.add(spotParent);
+    this.spots.rotation.y = startSpotRy;
+    this.add(this.spots);
 
     const controls = new OrbitControls(this.camera, this.renderer.domElement);
     controls.minDistance = 200;
@@ -87,13 +123,7 @@ export default class Scene {
     controls.rotateSpeed = 0.8;
     controls.autoRotateSpeed = 6;
     controls.enablePan = false;
-    controls.target = new THREE.Vector3(0, 0, 0);
-
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshPhysicalMaterial({ color: 0xccd6ff });
-    const cube = new THREE.Mesh(geometry, material);
-    cube.scale.set(20, 20, 20);
-    this.objects.add(cube);
+    controls.target = new THREE.Vector3(0, 0, -50);
 
     this.camera.position.x = 0;
     this.camera.position.y = 10;

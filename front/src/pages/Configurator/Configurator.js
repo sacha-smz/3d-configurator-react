@@ -48,8 +48,8 @@ function Configurator() {
   return (
     <section className="configurator">
       <Stage />
-      <ModelGallery />
-      <ControlPanel onChangeColor={scene.changeObjectColor} />
+      <ModelGallery onButtonClick={scene.loadModel} />
+      <ControlPanel onColorButtonClick={scene.changeModelColor} />
     </section>
   );
 }

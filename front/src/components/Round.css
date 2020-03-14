@@ -1,0 +1,20 @@
+.round {
+  position: relative;
+}
+.round__wrapper {
+  width: 100%;
+  padding-top: 100%;
+}
+.round__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*# sourceMappingURL=Round.css.map */

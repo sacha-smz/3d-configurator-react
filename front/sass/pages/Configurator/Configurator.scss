@@ -1,6 +1,7 @@
 @use "sass:map";
 
 @use "../../utils/functions" as f;
+@use "../../utils/mixins" as m;
 
 .configurator {
   flex-grow: 2;
@@ -17,6 +18,8 @@
     canvas {
       margin: auto;
       border-radius: 1.6rem;
+      font-size: 1rem;
+      @include m.box-shadow(3);
 
       &:focus {
         outline: none;
@@ -35,32 +38,44 @@
     display: flex;
     justify-content: center;
 
-    button {
+    .round {
+      width: 11%;
+
+      & ~ .round {
+        margin-left: 2%;
+      }
+    }
+
+    label {
       pointer-events: auto;
-      width: 18%;
-      border-radius: 0.8rem;
       background-color: f.getColor("main", "delta");
-      opacity: 0.82;
-      padding: 1% 0;
+      @include m.box-shadow(0.75);
+      opacity: 0.9;
       transform: scale(1);
-      transition: all 100ms 60ms;
-
-      &:hover {
-        transform: scale(1.05);
-        opacity: 1;
-      }
-
-      &:active {
-        transform: scale(0.98);
-        transition: all 60ms 0ms;
-      }
+      transition: all 100ms 70ms;
 
       img {
         max-width: 100%;
       }
 
-      & ~ button {
-        margin-left: 1.4%;
+      &:hover {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+
+      &:active {
+        transform: scale(0.98);
+        transition: all 10ms 0ms;
+      }
+    }
+
+    input[type="radio"] {
+      display: none;
+
+      &:checked + label {
+        transform: scale(1.15);
+        opacity: 1;
+        border: 0.24rem solid f.getDarkColor("main", "gamma");
       }
     }
   }
@@ -80,11 +95,11 @@
       text-transform: uppercase;
       border-radius: 1.6rem;
       overflow: hidden;
-      box-shadow: 0.08rem 0.16rem 0.24rem 0 f.getColor("main", "default");
+      @include m.box-shadow;
 
       transform: scale(1);
       color: f.getDarkColor("main", "delta");
-      transition: all 1s;
+      transition: all 500ms;
 
       span {
         position: relative;
@@ -121,7 +136,7 @@
         background-color: f.getDarkColor("main", "delta");
 
         opacity: 0;
-        transition: opacity 1s;
+        transition: opacity 500ms;
       }
     }
   }

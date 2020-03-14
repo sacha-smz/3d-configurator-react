@@ -13,6 +13,8 @@
 .configurator__stage canvas {
   margin: auto;
   border-radius: 1.6rem;
+  font-size: 1rem;
+  box-shadow: 0.24rem 0.48rem 1.44rem #a0a0a0;
 }
 .configurator__stage canvas:focus {
   outline: none;
@@ -27,29 +29,38 @@
   display: flex;
   justify-content: center;
 }
-.configurator__model-gallery button {
+.configurator__model-gallery .round {
+  width: 11%;
+}
+.configurator__model-gallery .round ~ .round {
+  margin-left: 2%;
+}
+.configurator__model-gallery label {
   pointer-events: auto;
-  width: 18%;
-  border-radius: 0.8rem;
   background-color: #b0aac0;
-  opacity: 0.82;
-  padding: 1% 0;
+  box-shadow: 0.06rem 0.12rem 0.36rem #a0a0a0;
+  opacity: 0.9;
   transform: scale(1);
-  transition: all 100ms 60ms;
+  transition: all 100ms 70ms;
 }
-.configurator__model-gallery button:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-.configurator__model-gallery button:active {
-  transform: scale(0.98);
-  transition: all 60ms 0ms;
-}
-.configurator__model-gallery button img {
+.configurator__model-gallery label img {
   max-width: 100%;
 }
-.configurator__model-gallery button ~ button {
-  margin-left: 1.4%;
+.configurator__model-gallery label:hover {
+  transform: scale(1.15);
+  opacity: 1;
+}
+.configurator__model-gallery label:active {
+  transform: scale(0.98);
+  transition: all 10ms 0ms;
+}
+.configurator__model-gallery input[type=radio] {
+  display: none;
+}
+.configurator__model-gallery input[type=radio]:checked + label {
+  transform: scale(1.15);
+  opacity: 1;
+  border: 0.24rem solid #8daebf;
 }
 .configurator__control-panel {
   display: flex;
@@ -66,10 +77,10 @@
   text-transform: uppercase;
   border-radius: 1.6rem;
   overflow: hidden;
-  box-shadow: 0.08rem 0.16rem 0.24rem 0 #282828;
+  box-shadow: 0.08rem 0.16rem 0.48rem #a0a0a0;
   transform: scale(1);
   color: #8980a1;
-  transition: all 1s;
+  transition: all 500ms;
 }
 .configurator__control-panel button span {
   position: relative;
@@ -98,7 +109,7 @@
   left: 0;
   background-color: #8980a1;
   opacity: 0;
-  transition: opacity 1s;
+  transition: opacity 500ms;
 }
 
 /*# sourceMappingURL=Configurator.css.map */
