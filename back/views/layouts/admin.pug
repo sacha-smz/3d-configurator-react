@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
+    link(rel="stylesheet", href="stylesheets/destyle.css")
+    link(rel="stylesheet", href="stylesheets/style.css")
+
+    block styles
+
+    title 3d-configurator Admin
+
+    <script src="https://kit.fontawesome.com/1999993b28.js" crossorigin="anonymous"></script>
+  body
+   div#root
+    nav#admin-nav(data-current-link=currentLink)
+
+    main#content
+      block content
+
+  script(src="https://unpkg.com/react@16/umd/react.development.js")
+  script(src="https://unpkg.com/react-dom@16/umd/react-dom.development.js")
+  script(type="module", src="javascripts/layout/AdminNav.js")

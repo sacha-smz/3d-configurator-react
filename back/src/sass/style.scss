@@ -12,13 +12,13 @@ nav {
   background-color: #666;
   color: white;
   font-weight: bold;
-}
-nav li {
-  padding: 0.4em;
-}
-nav li.active {
-  background-color: white;
-  color: #666;
-}
 
-/*# sourceMappingURL=style.css.map */
+  li {
+    padding: 0.4em;
+
+    &.active {
+      background-color: white;
+      color: #666;
+    }
+  }
+}
