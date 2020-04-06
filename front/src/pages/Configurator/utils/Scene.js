@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
-const modelsPath = process.env.REACT_APP_API_URL + "models/";
+const modelsPath = process.env.REACT_APP_API_URL + "api/models/";
 
 export default class Scene {
   constructor() {
@@ -33,18 +33,18 @@ export default class Scene {
 
     const group = this.models.children[this.currentModelId];
 
-    group.traverse(child => {
+    group.traverse((child) => {
       if (child.isMesh) {
         const materials = Array.isArray(child.material) ? child.material : [child.material];
 
-        materials.forEach(material => {
+        materials.forEach((material) => {
           material.color.setHSL(Math.random(), 0.6, 0.8);
         });
       }
     });
   };
 
-  loadModel = modelName => {
+  loadModel = (modelName) => {
     const models = this.models.children;
     const modelsCount = models.length;
 
@@ -59,7 +59,7 @@ export default class Scene {
       }
     }
     if (newModel) {
-      this.loader.load(modelsPath + modelName + "/001.fbx", object => {
+      this.loader.load(modelsPath + modelName + "/001.fbx", (object) => {
         object.name = modelName;
         this.currentModelId = modelsCount;
         this.models.add(object);
@@ -102,7 +102,7 @@ export default class Scene {
     spot4.position.set(1, spotHeight, -1);
     spots.push(spot4);
 
-    spots.forEach(spot => {
+    spots.forEach((spot) => {
       this.spots.add(spot);
     });
 

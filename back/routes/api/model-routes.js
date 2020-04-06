@@ -4,7 +4,7 @@ const path = require("path");
 const router = express.Router();
 const cors = require("cors");
 
-const modelController = require("../controllers/model-controller");
+const modelController = require("../../controllers/api/model-controller");
 
 router.use(cors());
 

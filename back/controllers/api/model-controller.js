@@ -4,7 +4,7 @@ const path = require("path");
 exports.index = (req, res) => {
   try {
     const modelsPath = path.resolve("assets/models");
-    const files = fs.readdirSync(modelsPath).filter(file => fs.lstatSync(path.join(modelsPath, file)).isDirectory());
+    const files = fs.readdirSync(modelsPath).filter((file) => fs.lstatSync(path.join(modelsPath, file)).isDirectory());
     if (!Array.isArray(files) || files.length === 0) {
       return res.status(404).json({ error: "Aucun modèle à afficher" });
     }
@@ -15,5 +15,5 @@ exports.index = (req, res) => {
 };
 
 exports.serveFile = (req, res) => {
-  res.sendFile(path.resolve("assets" + req.originalUrl));
+  res.sendFile(path.resolve("assets" + req.originalUrl.replace("/api", "")));
 };

@@ -3,7 +3,7 @@ import httpClient from "axios";
 
 import Round from "../../components/Round";
 
-const modelsPath = process.env.REACT_APP_API_URL + "models";
+const modelsPath = process.env.REACT_APP_API_URL + "api/models";
 
 function ModelGallery(props) {
   const [modelList, setModelList] = useState([]);
@@ -11,15 +11,15 @@ function ModelGallery(props) {
   useEffect(() => {
     httpClient
       .get(modelsPath)
-      .then(res => {
+      .then((res) => {
         setModelList(res.data);
       })
-      .catch(error => error);
+      .catch((error) => error);
   }, []);
 
   return (
     <div className="configurator__model-gallery">
-      {modelList.map(modelName => {
+      {modelList.map((modelName) => {
         const modelRadio = (
           <input type="radio" name="model" id={`radio-${modelName}`} onChange={() => props.onButtonClick(modelName)} />
         );
