@@ -10,7 +10,7 @@ function CreateForm() {
       <label htmlFor="price">Prix: </label>
       <input type="number" id="price" name="price" step="any" />
 
-      <input type="file" name="file" id="file" />
+      <input type="file" name="file" id="file" multiple />
 
       <input type="submit" value="Valider" />
     </form>

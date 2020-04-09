@@ -2,6 +2,12 @@ extends ../layouts/admin.pug
 
 block content
   main#frame-create-form
+  if errors
+    div
+      each error in errors
+        p #{error.msg}
+  if success
+    div= success
 
 block scripts
   script(type="module", src="/javascripts/pages/frames/CreateForm.js")
