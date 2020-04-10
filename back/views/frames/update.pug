@@ -1,0 +1,19 @@
+extends ../layouts/admin.pug
+
+block content
+  if errors
+    div
+      each error in errors
+        p #{error.message}
+  if success
+    div= success
+
+  if frame
+    div
+      img(src=`/api/models/${frame.ref}/${frame.ref}.png`, alt=`Monture ${frame.name}`, title=`${frame.name}`)
+    form(action=`/admin/frames/${frame.ref}`, method="POST")
+      input(type="hidden", name="ref", value=`${frame.ref}`)
+      input#name(type="text", name="name", value=`${frame.name}`)
+      input#price(type="number", name="price", value=`${frame.price}`)
+      button(type="submit") Valider
+

@@ -2,6 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 const { validationResult } = require("express-validator");
+const validResult = validationResult.withDefaults({
+  formatter: (error) => ({
+    message: error.msg
+  })
+});
 
 const Texture = require("../../models/texture");
 
@@ -10,7 +15,7 @@ exports.showCreateForm = (req, res) => {
 };
 
 exports.create = (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validResult(req);
   if (!errors.isEmpty()) {
     res.render("textures/create", { errors: errors.array() });
     return;
@@ -30,9 +35,9 @@ exports.create = (req, res, next) => {
           fs.unlinkSync(req.file.path);
         }
         console.log(err);
-        res
-          .status(500)
-          .render("textures/create", { errors: [{ msg: "Une erreur est survenue lors de l'écriture des fichiers" }] });
+        res.status(500).render("textures/create", {
+          errors: [{ message: "Une erreur est survenue lors de l'écriture des fichiers" }]
+        });
         return;
       }
 
@@ -47,7 +52,7 @@ exports.create = (req, res, next) => {
 
       console.log(err);
       res.status(500).render("textures/create", {
-        errors: [{ msg: "Une erreur est survenue, la texture n'a pas pu être enregistrée" }]
+        errors: [{ message: "Une erreur est survenue, la texture n'a pas pu être enregistrée" }]
       });
     });
 };

@@ -1,15 +1,14 @@
 const container = document.getElementById("admin-nav");
 
 function AdminNav() {
-  const currentLink = container.dataset.currentLink;
-  console.log(currentLink);
+  const currentDomain = container.dataset.currentDomain;
 
   const links = [
     { url: "/", label: <i className="fas fa-home"></i> },
-    { url: "frames", label: "Montures" },
-    { url: "textures", label: "Textures" }
+    { url: "/admin/frames", label: "Montures" },
+    { url: "/admin/textures", label: "Textures" }
   ].map((link) => (
-    <li key={link.url} className={link.url === currentLink ? "active" : ""}>
+    <li key={link.url} className={link.label === currentDomain ? "active" : ""}>
       <a href={link.url}>{link.label}</a>
     </li>
   ));

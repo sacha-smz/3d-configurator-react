@@ -8,16 +8,22 @@ const router = express.Router();
 
 router.use((req, res, next) => {
   res.locals = {
-    currentLink: "frames"
+    currentDomain: "Montures"
   };
   next();
 });
 
-router.get("/", (req, res) => {
-  res.render("frames/index");
-});
+router.get("/", frameController.index);
 
-router.get("/create", frameController.showCreateForm);
-router.post("/create", frameFilesUpload, frameValidator(), frameController.create);
+router
+  .route("/create")
+  .get(frameController.showCreateForm)
+  .post(frameFilesUpload, frameValidator(), frameController.create);
+
+// prettier-ignore
+router
+  .route("/:ref")
+  .get(frameController.get)
+  .post(frameValidator(), frameController.update);
 
 module.exports = router;
