@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const modelsRouter = require("./routes/api/model-routes");
 const framesRouter = require("./routes/admin/frame-routes");
+const texturesRouter = require("./routes/admin/texture-routes");
 
 mongoose
   .connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, {
@@ -29,5 +30,6 @@ app.use(express.static("public"));
 
 app.use("/api/models", modelsRouter);
 app.use("/admin/frames", framesRouter);
+app.use("/admin/textures", texturesRouter);
 
 module.exports = app;

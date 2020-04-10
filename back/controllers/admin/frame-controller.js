@@ -39,7 +39,7 @@ exports.create = (req, res, next) => {
       }
 
       res.render("frames/create", {
-        success: `Le modèle ${name}, ref. ${ref} a bien été enregistré`
+        success: `Le modèle ${name} (ref. ${ref}) a bien été enregistré`
       });
     })
     .catch((err) => {
