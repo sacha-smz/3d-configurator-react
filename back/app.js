@@ -13,7 +13,8 @@ mongoose
   .connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
   })
   .then(() => console.log("Connexion à MongoDB réussie"))
   .catch(() => console.log("Connexion à MongoDB échouée"));

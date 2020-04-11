@@ -17,3 +17,12 @@ block content
       input#price(type="number", name="price", value=`${frame.price}`)
       button(type="submit") Valider
 
+    #frame-textures
+      each texture in frame.textures
+        a(href=`/admin/frames/${frame.ref}/texture/${texture._id}`)= texture.name
+
+    #available-textures
+      each availableTexture in availableTextures
+        a(href=`/admin/frames/${frame.ref}/texture/${availableTexture._id}`)= availableTexture.name
+
+

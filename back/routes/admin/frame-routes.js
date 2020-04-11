@@ -26,4 +26,6 @@ router
   .get(frameController.get)
   .post(frameValidator(), frameController.update);
 
+router.get("/:ref/texture/:id", frameController.addTexture);
+
 module.exports = router;
