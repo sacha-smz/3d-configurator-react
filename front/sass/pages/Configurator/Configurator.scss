@@ -1,5 +1,6 @@
 @use "sass:map";
 
+@use "../../utils/variables" as v;
 @use "../../utils/functions" as f;
 @use "../../utils/mixins" as m;
 
@@ -82,9 +83,11 @@
 
   &__control-panel {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     background-color: f.getColor("main", "delta");
+    height: calc(100vh - #{v.$headerHeight});
+    overflow-y: auto;
 
     button {
       position: relative;
@@ -94,6 +97,7 @@
       padding: 0.8rem 2rem;
       text-transform: uppercase;
       border-radius: 1.6rem;
+      flex-shrink: 0;
       overflow: hidden;
       @include m.box-shadow;
 

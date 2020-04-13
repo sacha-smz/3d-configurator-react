@@ -2,10 +2,13 @@ require("dotenv").config();
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
 const modelsRouter = require("./routes/api/model-routes");
+const fileController = require("./controllers/api/file-controller");
+
 const framesRouter = require("./routes/admin/frame-routes");
 const texturesRouter = require("./routes/admin/texture-routes");
 
@@ -29,7 +32,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
-app.use("/api/models", modelsRouter);
+app.use(/^\/api\/(?:models|textures)\/(?:\w+\/)?\w+(?:-thmb)?\.(?:png|fbx)$/, cors(), fileController.serve);
+
+app.use("/api/models", cors(), modelsRouter);
+
 app.use("/admin/frames", framesRouter);
 app.use("/admin/textures", texturesRouter);
 

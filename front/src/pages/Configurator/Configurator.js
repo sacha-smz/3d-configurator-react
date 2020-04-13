@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import httpClient from "axios";
 
 import Scene from "./utils/Scene";
 
@@ -9,14 +10,28 @@ import ModelGallery from "./ModelGallery";
 import ControlPanel from "./ControlPanel";
 
 const scene = new Scene();
+const modelsPath = process.env.REACT_APP_API_URL + "api/models";
 
 function Configurator() {
+  const [models, setModels] = useState([]);
+
+  const [currentModel, setCurrentModel] = useState(null);
+
   const [rendererSize, setRendererSize] = useState({
     width: 0,
     height: 0
   });
 
   // tableau vide en second argument -> 1 seule exécution, au montage du composant
+  useEffect(() => {
+    httpClient
+      .get(modelsPath)
+      .then(res => {
+        setModels(res.data);
+      })
+      .catch(error => error);
+  }, []);
+
   useEffect(() => {
     const container = document.querySelector("div.configurator__stage");
     scene.addToDom(container);
@@ -45,11 +60,19 @@ function Configurator() {
     scene.updateSize(rendererSize.width, rendererSize.height);
   }, [rendererSize.width, rendererSize.height]);
 
+  const useCurrentModel = modelName => {
+    setCurrentModel(modelName);
+    scene.loadModel(modelName);
+  };
+
   return (
     <section className="configurator">
       <Stage />
-      <ModelGallery onButtonClick={scene.loadModel} />
-      <ControlPanel onColorButtonClick={scene.changeModelColor} />
+      <ModelGallery onButtonClick={useCurrentModel} models={models} modelsPath={modelsPath} />
+      <ControlPanel
+        onColorButtonClick={scene.changeModelColor}
+        model={models.find(model => model.ref === currentModel)}
+      />
     </section>
   );
 }

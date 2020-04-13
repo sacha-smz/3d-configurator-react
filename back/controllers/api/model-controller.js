@@ -1,17 +1,12 @@
-const fs = require("fs");
 const path = require("path");
 
+const Model = require("../../models/frame");
+
 exports.index = (req, res) => {
-  try {
-    const modelsPath = "assets/models";
-    const files = fs.readdirSync(modelsPath).filter((file) => fs.lstatSync(path.join(modelsPath, file)).isDirectory());
-    if (!Array.isArray(files) || files.length === 0) {
-      return res.status(404).json({ error: "Aucun modèle à afficher" });
-    }
-    res.status(200).json(files);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+  Model.find()
+    .populate("textures")
+    .then(models => res.status(200).json(models))
+    .catch(error => res.status(404).json(error));
 };
 
 exports.serveFile = (req, res) => {

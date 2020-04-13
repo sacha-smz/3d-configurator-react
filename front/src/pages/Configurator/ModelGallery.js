@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from "react";
-import httpClient from "axios";
+import React from "react";
 
 import Round from "../../components/Round";
 
-const modelsPath = process.env.REACT_APP_API_URL + "api/models";
-
 function ModelGallery(props) {
-  const [modelList, setModelList] = useState([]);
-
-  useEffect(() => {
-    httpClient
-      .get(modelsPath)
-      .then((res) => {
-        setModelList(res.data);
-      })
-      .catch((error) => error);
-  }, []);
+  const { models, modelsPath } = props;
 
   return (
     <div className="configurator__model-gallery">
-      {modelList.map((modelName) => {
+      {models.map(model => {
         const modelRadio = (
-          <input type="radio" name="model" id={`radio-${modelName}`} onChange={() => props.onButtonClick(modelName)} />
+          <input type="radio" name="model" id={`radio-${model.ref}`} onChange={() => props.onButtonClick(model.ref)} />
         );
         return (
-          <Round key={modelName} type="label" htmlFor={`radio-${modelName}`} before={modelRadio}>
-            <img src={`${modelsPath}/${modelName}/${modelName}.png`} alt={`Modèle ${modelName}`}></img>
+          <Round key={model._id} type="label" htmlFor={`radio-${model.ref}`} before={modelRadio}>
+            <img src={`${modelsPath}/${model.ref}/${model.ref}.png`} alt={`Modèle ${model.name}`}></img>
           </Round>
         );
       })}
