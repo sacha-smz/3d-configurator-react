@@ -30,8 +30,7 @@ exports.showCreateForm = (req, res) => {
 exports.create = (req, res, next) => {
   const errors = validResult(req);
   if (!errors.isEmpty()) {
-    res.render("frames/create", { errors: errors.array() });
-    return;
+    return res.render("frames/create", { errors: errors.array() });
   }
 
   Frame.create({ ...req.body })
@@ -50,10 +49,9 @@ exports.create = (req, res, next) => {
           }
         });
         console.log(err);
-        res.status(500).render("frames/create", {
+        return res.status(500).render("frames/create", {
           errors: [{ message: "Une erreur est survenue lors de l'écriture des fichiers" }]
         });
-        return;
       }
 
       res.render("frames/create", {
@@ -100,8 +98,7 @@ exports.update = (req, res) => {
   const errors = validResult(req);
   if (!errors.isEmpty()) {
     const err = encodeURIComponent(JSON.stringify(errors.array()));
-    res.redirect(`/admin/frames/${req.params.ref}?err=${err}`);
-    return;
+    return res.redirect(`/admin/frames/${req.params.ref}?err=${err}`);
   }
 
   Frame.findOneAndUpdate({ ref: req.params.ref }, { ...req.body })

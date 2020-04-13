@@ -10,16 +10,15 @@ module.exports = (req, res, next) => {
 
   const upload = multer({ storage }).array("file", 3);
 
-  upload(req, res, (err) => {
+  upload(req, res, err => {
     if (err) {
-      req.files.forEach((file) => {
+      req.files.forEach(file => {
         if (fs.existsSync(file.path)) {
           fs.unlinkSync(file.path);
         }
       });
       console.log(err);
-      res.status(500).redirect("back");
-      return;
+      return res.status(500).redirect("back");
     }
     next();
   });
