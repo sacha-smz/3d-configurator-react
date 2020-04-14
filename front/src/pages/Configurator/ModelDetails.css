@@ -1,0 +1,89 @@
+.model-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #b0aac0;
+  height: calc(100vh - 4rem);
+  overflow-y: auto;
+  padding: 1.5em 0.5em;
+}
+.model-details h2 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 0.8em;
+}
+.model-details__price {
+  font-size: 1.2em;
+}
+.model-details__texture-thumbs {
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow-y: hidden;
+  padding: 0.6em;
+  margin: 2em 0;
+}
+.model-details__texture-thumbs input[name=texture] {
+  display: none;
+}
+.model-details__texture-thumbs input[name=texture]:checked + label {
+  box-shadow: 0.088rem 0.088rem 0.528rem 0.088rem #cedde4, -0.088rem 0.088rem 0.528rem 0.088rem #cedde4, -0.088rem -0.088rem 0.528rem 0.088rem #cedde4, 0.088rem -0.088rem 0.528rem 0.088rem #cedde4;
+}
+.model-details__texture-thumb {
+  max-width: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+}
+.model-details__texture-thumb ~ label {
+  margin-left: 0.6em;
+}
+.model-details__texture-thumb img {
+  max-width: 100%;
+}
+.model-details button {
+  position: relative;
+  background-color: #ddeedd;
+  font-size: 1.15rem;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  text-transform: uppercase;
+  border-radius: 1.6rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0.08rem 0.16rem 0.48rem #a0a0a0;
+  transform: scale(1);
+  color: #8980a1;
+  transition: all 500ms;
+}
+.model-details button span {
+  position: relative;
+  z-index: 2;
+}
+.model-details button:active::after {
+  background-color: #b0aac0;
+}
+.model-details button:focus {
+  outline: none;
+}
+.model-details button:hover {
+  color: #f0efef;
+  transform: scale(1.15);
+}
+.model-details button:hover::after {
+  opacity: 1;
+}
+.model-details button::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #8980a1;
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+/*# sourceMappingURL=ModelDetails.css.map */

@@ -1,0 +1,45 @@
+.model-gallery {
+  position: relative;
+  width: 100%;
+  margin: auto auto 1.4rem;
+  pointer-events: none;
+  z-index: 2;
+  grid-area: 1/1/1/1;
+  display: flex;
+  justify-content: center;
+}
+.model-gallery .round {
+  width: 11%;
+}
+.model-gallery .round ~ .round {
+  margin-left: 2%;
+}
+.model-gallery label {
+  pointer-events: auto;
+  background-color: #b0aac0;
+  box-shadow: 0.06rem 0.12rem 0.36rem #a0a0a0;
+  opacity: 0.9;
+  transform: scale(1);
+  transition: all 100ms 70ms;
+}
+.model-gallery label img {
+  max-width: 100%;
+}
+.model-gallery label:hover {
+  transform: scale(1.15);
+  opacity: 1;
+}
+.model-gallery label:active {
+  transform: scale(0.98);
+  transition: all 10ms 0ms;
+}
+.model-gallery input[type=radio] {
+  display: none;
+}
+.model-gallery input[type=radio]:checked + label {
+  transform: scale(1.15);
+  opacity: 1;
+  border: 0.24rem solid #8daebf;
+}
+
+/*# sourceMappingURL=ModelGallery.css.map */

@@ -1,0 +1,55 @@
+@use "../../utils/functions" as f;
+@use "../../utils/mixins" as m;
+
+.model-gallery {
+  position: relative;
+  width: 100%;
+  margin: auto auto 1.4rem;
+  pointer-events: none;
+  z-index: 2;
+  grid-area: 1 / 1 / 1 / 1;
+
+  display: flex;
+  justify-content: center;
+
+  .round {
+    width: 11%;
+
+    & ~ .round {
+      margin-left: 2%;
+    }
+  }
+
+  label {
+    pointer-events: auto;
+    background-color: f.getColor("main", "delta");
+    @include m.box-shadow(0.75);
+    opacity: 0.9;
+    transform: scale(1);
+    transition: all 100ms 70ms;
+
+    img {
+      max-width: 100%;
+    }
+
+    &:hover {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+
+    &:active {
+      transform: scale(0.98);
+      transition: all 10ms 0ms;
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked + label {
+      transform: scale(1.15);
+      opacity: 1;
+      border: 0.24rem solid f.getDarkColor("main", "gamma");
+    }
+  }
+}

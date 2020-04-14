@@ -11,3 +11,10 @@
 @mixin box-shadow($size: 1) {
   box-shadow: $size * 0.08rem $size * 0.16rem $size * 0.48rem #a0a0a0;
 }
+
+@mixin glow($size: 1, $color: #a0a0a0) {
+  box-shadow: $size * 0.08rem $size * 0.08rem $size * 0.48rem $size * 0.08rem $color,
+    $size * -0.08rem $size * 0.08rem $size * 0.48rem $size * 0.08rem $color,
+    $size * -0.08rem $size * -0.08rem $size * 0.48rem $size * 0.08rem $color,
+    $size * 0.08rem $size * -0.08rem $size * 0.48rem $size * 0.08rem $color;
+}

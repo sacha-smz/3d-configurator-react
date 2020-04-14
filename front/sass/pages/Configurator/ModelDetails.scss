@@ -1,0 +1,110 @@
+@use "../../utils/variables" as v;
+@use "../../utils/functions" as f;
+@use "../../utils/mixins" as m;
+
+.model-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: f.getColor("main", "delta");
+  height: calc(100vh - #{v.$headerHeight});
+  overflow-y: auto;
+  padding: 1.5em 0.5em;
+
+  h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.8em;
+  }
+
+  &__price {
+    font-size: 1.2em;
+  }
+
+  &__texture-thumbs {
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    overflow-y: hidden;
+    padding: 0.6em;
+    margin: 2em 0;
+
+    input[name="texture"] {
+      display: none;
+
+      &:checked + label {
+        @include m.glow(1.1, f.getLightColor("main", "gamma"));
+      }
+    }
+  }
+
+  &__texture-thumb {
+    max-width: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+
+    & ~ label {
+      margin-left: 0.6em;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  button {
+    position: relative;
+    background-color: f.getColor("main", "beta");
+    font-size: 1.15rem;
+    font-weight: bold;
+    padding: 0.8rem 2rem;
+    text-transform: uppercase;
+    border-radius: 1.6rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    @include m.box-shadow;
+
+    transform: scale(1);
+    color: f.getDarkColor("main", "delta");
+    transition: all 500ms;
+
+    span {
+      position: relative;
+      z-index: 2;
+    }
+
+    &:active {
+      &::after {
+        background-color: f.getColor("main", "delta");
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      color: f.getColor("main", "alpha");
+      transform: scale(1.15);
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: f.getDarkColor("main", "delta");
+
+      opacity: 0;
+      transition: opacity 500ms;
+    }
+  }
+}

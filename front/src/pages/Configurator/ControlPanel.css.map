@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "../../../sass/pages/Configurator/ModelDetails.scss",
+    "../../../sass/utils/_mixins.scss"
+  ],
+  "names": [],
+  "mappings": "AAIA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAGF;EACE;EACA;;AAGF;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;ECrBF;EDwBE;EACA;EACA;;AAEA;EACE;EACA;;AAIA;EACE;;AAIJ;EACE;;AAGF;EACE;EACA;;AAEA;EACE;;AAIJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EAEA;EACA;;AAIJ;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;;AAEA;ECzEJ;;AD+EA;EACE;EACA;EACA;EACA;;AAEA;EACE;;AAGF;EACE",
+  "file": "ModelDetails.css"
+}

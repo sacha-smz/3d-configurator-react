@@ -7,7 +7,7 @@ import "./Configurator.css";
 
 import Stage from "./Stage";
 import ModelGallery from "./ModelGallery";
-import ControlPanel from "./ControlPanel";
+import ModelDetails from "./ModelDetails";
 
 const scene = new Scene();
 const modelsPath = process.env.REACT_APP_API_URL + "api/models";
@@ -69,7 +69,7 @@ function Configurator() {
     <section className="configurator">
       <Stage />
       <ModelGallery onButtonClick={useCurrentModel} models={models} modelsPath={modelsPath} />
-      <ControlPanel
+      <ModelDetails
         onColorButtonClick={scene.changeModelColor}
         model={models.find(model => model.ref === currentModel)}
       />
