@@ -3,7 +3,7 @@ import React from "react";
 import "./ModelDetails.css";
 
 function ModelDetails(props) {
-  const { model } = props;
+  const { model, onTextureChange } = props;
 
   return (
     <article className="model-details">
@@ -16,7 +16,13 @@ function ModelDetails(props) {
           <div className="model-details__texture-thumbs">
             {model.textures.map(texture => (
               <React.Fragment key={texture._id}>
-                <input type="radio" name="texture" id={`texture-${texture.ref}`} value={`texture-${texture.ref}`} />
+                <input
+                  type="radio"
+                  name="texture"
+                  id={`texture-${texture.ref}`}
+                  defaultValue={`texture-${texture.ref}`}
+                  onChange={() => onTextureChange(texture.ref)}
+                />
                 <label htmlFor={`texture-${texture.ref}`} className="model-details__texture-thumb">
                   <img
                     src={process.env.REACT_APP_API_URL + `api/textures/${texture.ref}-thmb.png`}
@@ -27,10 +33,6 @@ function ModelDetails(props) {
               </React.Fragment>
             ))}
           </div>
-
-          <button onClick={props.onColorButtonClick}>
-            <span>Couleur</span>
-          </button>
         </>
       )}
     </article>

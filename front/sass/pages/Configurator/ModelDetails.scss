@@ -53,58 +53,58 @@
     }
   }
 
-  button {
-    position: relative;
-    background-color: f.getColor("main", "beta");
-    font-size: 1.15rem;
-    font-weight: bold;
-    padding: 0.8rem 2rem;
-    text-transform: uppercase;
-    border-radius: 1.6rem;
-    flex-shrink: 0;
-    overflow: hidden;
-    @include m.box-shadow;
+  // button {
+  //   position: relative;
+  //   background-color: f.getColor("main", "beta");
+  //   font-size: 1.15rem;
+  //   font-weight: bold;
+  //   padding: 0.8rem 2rem;
+  //   text-transform: uppercase;
+  //   border-radius: 1.6rem;
+  //   flex-shrink: 0;
+  //   overflow: hidden;
+  //   @include m.box-shadow;
 
-    transform: scale(1);
-    color: f.getDarkColor("main", "delta");
-    transition: all 500ms;
+  //   transform: scale(1);
+  //   color: f.getDarkColor("main", "delta");
+  //   transition: all 500ms;
 
-    span {
-      position: relative;
-      z-index: 2;
-    }
+  //   span {
+  //     position: relative;
+  //     z-index: 2;
+  //   }
 
-    &:active {
-      &::after {
-        background-color: f.getColor("main", "delta");
-      }
-    }
+  //   &:active {
+  //     &::after {
+  //       background-color: f.getColor("main", "delta");
+  //     }
+  //   }
 
-    &:focus {
-      outline: none;
-    }
+  //   &:focus {
+  //     outline: none;
+  //   }
 
-    &:hover {
-      color: f.getColor("main", "alpha");
-      transform: scale(1.15);
+  //   &:hover {
+  //     color: f.getColor("main", "alpha");
+  //     transform: scale(1.15);
 
-      &::after {
-        opacity: 1;
-      }
-    }
+  //     &::after {
+  //       opacity: 1;
+  //     }
+  //   }
 
-    &::after {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: f.getDarkColor("main", "delta");
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     z-index: 1;
+  //     top: 0;
+  //     right: 0;
+  //     bottom: 0;
+  //     left: 0;
+  //     background-color: f.getDarkColor("main", "delta");
 
-      opacity: 0;
-      transition: opacity 500ms;
-    }
-  }
+  //     opacity: 0;
+  //     transition: opacity 500ms;
+  //   }
+  // }
 }

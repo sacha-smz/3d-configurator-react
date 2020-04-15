@@ -69,10 +69,7 @@ function Configurator() {
     <section className="configurator">
       <Stage />
       <ModelGallery onButtonClick={useCurrentModel} models={models} modelsPath={modelsPath} />
-      <ModelDetails
-        onColorButtonClick={scene.changeModelColor}
-        model={models.find(model => model.ref === currentModel)}
-      />
+      <ModelDetails onTextureChange={scene.applyTexture} model={models.find(model => model.ref === currentModel)} />
     </section>
   );
 }

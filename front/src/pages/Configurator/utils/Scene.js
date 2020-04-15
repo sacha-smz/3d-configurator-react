@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
 const modelsPath = process.env.REACT_APP_API_URL + "api/models/";
+const texturesPath = process.env.REACT_APP_API_URL + "api/textures/";
 
 export default class Scene {
   constructor() {
@@ -10,10 +11,12 @@ export default class Scene {
     this.camera = new THREE.PerspectiveCamera(20, 1, 1, 8000);
     this.instance = new THREE.Scene();
     this.loader = new FBXLoader();
+    this.textureLoader = new THREE.TextureLoader();
     this.models = new THREE.Object3D();
     this.spots = new THREE.Object3D();
     this.currentModelId = -1;
     this.add(this.models);
+    this.textures = {};
 
     this.setup();
   }
@@ -26,25 +29,51 @@ export default class Scene {
     container.appendChild(this.renderer.domElement);
   }
 
-  changeModelColor = () => {
+  applyTexture = ref => {
     if (this.currentModelId === -1) {
       return;
     }
 
     const group = this.models.children[this.currentModelId];
 
-    group.traverse((child) => {
+    group.traverse(child => {
       if (child.isMesh) {
         const materials = Array.isArray(child.material) ? child.material : [child.material];
-
-        materials.forEach((material) => {
-          material.color.setHSL(Math.random(), 0.6, 0.8);
+        materials.forEach(material => {
+          this.getTexture(ref)
+            .then(texture => {
+              material.map = texture;
+              material.needsUpdate = true;
+            })
+            .catch(err => {
+              console.log(err);
+            });
         });
       }
     });
   };
 
-  loadModel = (modelName) => {
+  getTexture(ref) {
+    return new Promise((resolve, reject) => {
+      if (ref in this.textures) {
+        return resolve(this.textures[ref]);
+      }
+
+      this.textureLoader.load(
+        texturesPath + ref + ".png",
+        texture => {
+          this.textures[ref] = texture;
+          resolve(this.textures[ref]);
+        },
+        undefined,
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  loadModel = modelName => {
     const models = this.models.children;
     const modelsCount = models.length;
 
@@ -59,7 +88,7 @@ export default class Scene {
       }
     }
     if (newModel) {
-      this.loader.load(modelsPath + modelName + "/001.fbx", (object) => {
+      this.loader.load(modelsPath + modelName + "/001.fbx", object => {
         object.name = modelName;
         this.currentModelId = modelsCount;
         this.models.add(object);
@@ -102,7 +131,7 @@ export default class Scene {
     spot4.position.set(1, spotHeight, -1);
     spots.push(spot4);
 
-    spots.forEach((spot) => {
+    spots.forEach(spot => {
       this.spots.add(spot);
     });
 
