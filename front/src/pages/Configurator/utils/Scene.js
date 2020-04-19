@@ -2,22 +2,23 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
+import Model from "./Model";
+
 const modelsPath = process.env.REACT_APP_API_URL + "api/models/";
-const texturesPath = process.env.REACT_APP_API_URL + "api/textures/";
 
 export default class Scene {
   constructor() {
+    this.instance = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     this.camera = new THREE.PerspectiveCamera(20, 1, 1, 8000);
-    this.instance = new THREE.Scene();
-    this.loader = new FBXLoader();
-    this.textureLoader = new THREE.TextureLoader();
     this.models = new THREE.Object3D();
     this.spots = new THREE.Object3D();
-    this.currentModelId = -1;
-    this.add(this.models);
-    this.textures = {};
+    this.loader = new FBXLoader();
+    this.currentModel = new Model();
+  }
 
+  init() {
+    this.add(this.models);
     this.setup();
   }
 
@@ -29,69 +30,25 @@ export default class Scene {
     container.appendChild(this.renderer.domElement);
   }
 
-  applyTexture = ref => {
-    if (this.currentModelId === -1) {
-      return;
-    }
-
-    const group = this.models.children[this.currentModelId];
-
-    group.traverse(child => {
-      if (child.isMesh) {
-        const materials = Array.isArray(child.material) ? child.material : [child.material];
-        materials.forEach(material => {
-          this.getTexture(ref)
-            .then(texture => {
-              material.map = texture;
-              material.needsUpdate = true;
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        });
-      }
-    });
-  };
-
-  getTexture(ref) {
-    return new Promise((resolve, reject) => {
-      if (ref in this.textures) {
-        return resolve(this.textures[ref]);
-      }
-
-      this.textureLoader.load(
-        texturesPath + ref + ".png",
-        texture => {
-          this.textures[ref] = texture;
-          resolve(this.textures[ref]);
-        },
-        undefined,
-        err => {
-          reject(err);
-        }
-      );
-    });
-  }
-
   loadModel = modelName => {
     const models = this.models.children;
-    const modelsCount = models.length;
 
     let newModel = true;
-    for (let i = 0; i < modelsCount; i++) {
-      if (models[i].name === modelName) {
-        models[i].visible = true;
-        this.currentModelId = i;
+    models.forEach((model, i) => {
+      if (model.name === modelName) {
+        model.visible = true;
+        this.currentModel.setObject(model);
         newModel = false;
       } else {
-        models[i].visible = false;
+        model.visible = false;
       }
-    }
+    });
+
     if (newModel) {
       this.loader.load(modelsPath + modelName + "/001.fbx", object => {
         object.name = modelName;
-        this.currentModelId = modelsCount;
         this.models.add(object);
+        this.currentModel.setObject(object);
       });
     }
   };

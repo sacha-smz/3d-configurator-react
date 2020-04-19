@@ -5,13 +5,13 @@ import Round from "../../components/Round";
 import "./ModelGallery.css";
 
 function ModelGallery(props) {
-  const { models, modelsPath } = props;
+  const { models, modelsPath, onModelChange } = props;
 
   return (
     <div className="model-gallery">
       {models.map(model => {
         const modelRadio = (
-          <input type="radio" name="model" id={`radio-${model.ref}`} onChange={() => props.onButtonClick(model.ref)} />
+          <input type="radio" name="model" id={`radio-${model.ref}`} onChange={() => onModelChange(model.ref)} />
         );
         return (
           <Round key={model._id} type="label" htmlFor={`radio-${model.ref}`} before={modelRadio}>
