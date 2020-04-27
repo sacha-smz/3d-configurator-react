@@ -1,27 +1,5 @@
-@use "../../utils/functions" as f;
-@use "../../utils/mixins" as m;
-
 .configurator {
   flex-grow: 2;
   display: grid;
   grid-template-columns: 2fr 1fr;
-
-  &__stage {
-    position: relative;
-    z-index: 1;
-    grid-area: 1 / 1 / 1 / 1;
-    display: flex;
-    background-color: f.getColor("main", "gamma");
-
-    canvas {
-      margin: auto;
-      border-radius: 1.6rem;
-      font-size: 1rem;
-      @include m.box-shadow(3);
-
-      &:focus {
-        outline: none;
-      }
-    }
-  }
 }

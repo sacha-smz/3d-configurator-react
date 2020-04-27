@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
+import "./Stage.css";
+
 function Stage(props) {
-  const { scene } = props;
+  const { scene, toggleAdditive } = props;
 
   const [rendererSize, setRendererSize] = useState({
     width: 0,
@@ -9,6 +11,7 @@ function Stage(props) {
   });
 
   const stageContainer = useRef(null);
+  const additiveBtn = useRef(null);
 
   useEffect(() => {
     const container = stageContainer.current;
@@ -23,22 +26,49 @@ function Stage(props) {
       });
     };
 
+    const onKeyEvent = evt => {
+      if (evt.code === "ControlLeft" && !evt.repeat) {
+        additiveBtn.current.classList.toggle("stage__additive-select--active");
+        toggleAdditive();
+      }
+    };
+
     updateRendererSize();
     ["resize", "orientationchange"].forEach(event => {
       window.addEventListener(event, updateRendererSize);
     });
+
+    ["keydown", "keyup"].forEach(event => {
+      document.addEventListener(event, onKeyEvent);
+    });
+
     return () => {
       ["resize", "orientationchange"].forEach(event => {
         window.removeEventListener(event, updateRendererSize);
       });
+
+      ["keydown", "keyup"].forEach(event => {
+        document.removeEventListener(event, onKeyEvent);
+      });
     };
-  }, [scene]);
+  }, [scene, toggleAdditive]);
 
   useEffect(() => {
     scene.updateSize(rendererSize.width, rendererSize.height);
   }, [scene, rendererSize.width, rendererSize.height]);
 
-  return <div className="configurator__stage" ref={stageContainer}></div>;
+  const onAdditiveBtnClick = () => {
+    additiveBtn.current.classList.toggle("stage__additive-select--active");
+    toggleAdditive();
+  };
+
+  return (
+    <div className="stage" ref={stageContainer}>
+      <button type="button" className="stage__additive-select" onClick={onAdditiveBtnClick} ref={additiveBtn}>
+        &#65291;
+      </button>
+    </div>
+  );
 }
 
 export default Stage;

@@ -108,6 +108,8 @@ export default class Scene {
     controls.maxDistance = 1200;
     controls.rotateSpeed = 0.8;
     controls.autoRotateSpeed = 6;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.03;
     controls.enablePan = false;
     controls.target = new THREE.Vector3(0, 0, -50);
 

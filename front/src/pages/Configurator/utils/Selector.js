@@ -20,21 +20,12 @@ export default class Selector {
 
   init() {
     const events = {
-      document: {
-        keydown: this.onKeyEvent,
-        keyup: this.onKeyEvent
-      },
-      canvas: {
-        mousemove: this.onMouseMove,
-        mousedown: this.onMouseDown,
-        mouseup: this.onMouseUp
-      }
+      mousemove: this.onMouseMove,
+      mousedown: this.onMouseDown,
+      mouseup: this.onMouseUp
     };
-    for (const event in events.document) {
-      document.addEventListener(event, events.document[event]);
-    }
-    for (const event in events.canvas) {
-      this.scene.renderer.domElement.addEventListener(event, events.canvas[event]);
+    for (const event in events) {
+      this.scene.renderer.domElement.addEventListener(event, events[event]);
     }
   }
 
@@ -78,8 +69,8 @@ export default class Selector {
     }
   };
 
-  onKeyEvent = event => {
-    this.add = event.ctrlKey;
+  toggleAdditive = () => {
+    this.add = !this.add;
   };
 
   toggleHighlight(material) {

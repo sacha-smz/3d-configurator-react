@@ -3,21 +3,5 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
-.configurator__stage {
-  position: relative;
-  z-index: 1;
-  grid-area: 1/1/1/1;
-  display: flex;
-  background-color: #c2d4dd;
-}
-.configurator__stage canvas {
-  margin: auto;
-  border-radius: 1.6rem;
-  font-size: 1rem;
-  box-shadow: 0.24rem 0.48rem 1.44rem #a0a0a0;
-}
-.configurator__stage canvas:focus {
-  outline: none;
-}
 
 /*# sourceMappingURL=Configurator.css.map */

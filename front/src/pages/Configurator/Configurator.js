@@ -12,6 +12,7 @@ import ModelDetails from "./ModelDetails";
 
 const modelsPath = process.env.REACT_APP_API_URL + "api/models";
 const scene = new Scene();
+const selector = new Selector(scene);
 
 function Configurator() {
   const [models, setModels] = useState([]);
@@ -23,7 +24,6 @@ function Configurator() {
       .then(res => {
         setModels(res.data);
         scene.init();
-        const selector = new Selector(scene);
         selector.init();
       })
       .catch(error => error);
@@ -36,7 +36,7 @@ function Configurator() {
 
   return (
     <section className="configurator">
-      <Stage scene={scene}></Stage>
+      <Stage scene={scene} toggleAdditive={selector.toggleAdditive}></Stage>
       <ModelGallery onModelChange={useCurrentModel} models={models} modelsPath={modelsPath} />
       <ModelDetails
         onTextureChange={scene.currentModel.applyTexture}

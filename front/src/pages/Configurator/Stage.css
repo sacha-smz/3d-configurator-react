@@ -1,0 +1,47 @@
+.stage {
+  position: relative;
+  z-index: 1;
+  grid-area: 1/1/1/1;
+  display: flex;
+  background-color: #c2d4dd;
+}
+.stage__additive-select {
+  position: absolute;
+  top: 6vw;
+  left: 6vw;
+  width: 3vw;
+  height: 3vw;
+  line-height: 3vw;
+  border-radius: 50%;
+  background-color: #b0aac0;
+  color: #f0efef;
+  font-size: 2vw;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0.06rem 0.12rem 0.36rem #a0a0a0;
+  opacity: 0.9;
+  transform: scale(1);
+  transition: transform 70ms;
+}
+.stage__additive-select:hover {
+  transform: scale(1.08);
+  opacity: 1;
+}
+.stage__additive-select:active {
+  transform: scale(0.98);
+  transition: 0s;
+}
+.stage__additive-select--active {
+  box-shadow: 0 0 0 0.24rem #8daebf;
+}
+.stage canvas {
+  margin: auto;
+  border-radius: 1.6rem;
+  font-size: 1rem;
+  box-shadow: 0.24rem 0.48rem 1.44rem #a0a0a0;
+}
+.stage canvas:focus {
+  outline: none;
+}
+
+/*# sourceMappingURL=Stage.css.map */
