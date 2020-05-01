@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #b0aac0;
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
   overflow-y: auto;
   padding: 1.5em 0.5em;
 }
@@ -15,13 +15,21 @@
 .model-details__price {
   font-size: 1.2em;
 }
+.model-details__parts {
+  margin-top: 2em;
+}
+.model-details__parts span {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0.4em;
+}
 .model-details__texture-thumbs {
   width: 100%;
   text-align: center;
   white-space: nowrap;
   overflow-y: hidden;
   padding: 0.6em;
-  margin: 2em 0;
+  margin: 1em 0;
 }
 .model-details__texture-thumbs input[name=texture] {
   display: none;

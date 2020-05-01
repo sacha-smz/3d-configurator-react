@@ -3,7 +3,7 @@ import React from "react";
 import "./ModelDetails.css";
 
 function ModelDetails(props) {
-  const { model, onTextureChange } = props;
+  const { model, onTextureChange, selection } = props;
 
   return (
     <article className="model-details">
@@ -12,6 +12,12 @@ function ModelDetails(props) {
           <h2>{model.name}</h2>
 
           <div className="model-details__price">{model.price.toFixed(2)} €</div>
+
+          <div className="model-details__parts">
+            {selection.map(part => (
+              <span key={part}>{part}</span>
+            ))}
+          </div>
 
           <div className="model-details__texture-thumbs">
             {model.textures.map(texture => (

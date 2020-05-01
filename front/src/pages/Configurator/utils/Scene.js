@@ -9,7 +9,6 @@ const modelsPath = process.env.REACT_APP_API_URL + "api/models/";
 export default class Scene {
   constructor() {
     this.instance = new THREE.Scene();
-    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     this.camera = new THREE.PerspectiveCamera(20, 1, 1, 8000);
     this.models = new THREE.Object3D();
     this.spots = new THREE.Object3D();
@@ -17,7 +16,8 @@ export default class Scene {
     this.currentModel = new Model();
   }
 
-  init() {
+  init(canvas) {
+    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas });
     this.add(this.models);
     this.setup();
   }
@@ -26,31 +26,32 @@ export default class Scene {
     this.instance.add(object);
   }
 
-  addToDom(container) {
-    container.appendChild(this.renderer.domElement);
-  }
-
   loadModel = modelName => {
-    const models = this.models.children;
+    return new Promise((resolve, reject) => {
+      const models = this.models.children;
 
-    let newModel = true;
-    models.forEach((model, i) => {
-      if (model.name === modelName) {
-        model.visible = true;
-        this.currentModel.setObject(model);
-        newModel = false;
+      let newModel = true;
+      models.forEach((model, i) => {
+        if (model.name === modelName) {
+          model.visible = true;
+          this.currentModel.setObject(model);
+          newModel = false;
+        } else {
+          model.visible = false;
+        }
+      });
+
+      if (newModel) {
+        this.loader.load(modelsPath + modelName + "/001.fbx", object => {
+          object.name = modelName;
+          this.models.add(object);
+          this.currentModel.setObject(object);
+          resolve(this.currentModel);
+        });
       } else {
-        model.visible = false;
+        resolve(this.currentModel);
       }
     });
-
-    if (newModel) {
-      this.loader.load(modelsPath + modelName + "/001.fbx", object => {
-        object.name = modelName;
-        this.models.add(object);
-        this.currentModel.setObject(object);
-      });
-    }
   };
 
   updateSize(width, height) {

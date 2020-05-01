@@ -18,16 +18,9 @@ export default class Selector {
     this.add = false;
   }
 
-  init() {
-    const events = {
-      mousemove: this.onMouseMove,
-      mousedown: this.onMouseDown,
-      mouseup: this.onMouseUp
-    };
-    for (const event in events) {
-      this.scene.renderer.domElement.addEventListener(event, events[event]);
-    }
-  }
+  onMouseDown = () => {
+    this.clickedMaterial = this.intersectedMaterial;
+  };
 
   onMouseMove = event => {
     if (this.scene.currentModel.object) {
@@ -57,10 +50,6 @@ export default class Selector {
         this.intersectedMaterial = newIntersectedMaterial;
       }
     }
-  };
-
-  onMouseDown = () => {
-    this.clickedMaterial = this.intersectedMaterial;
   };
 
   onMouseUp = () => {
