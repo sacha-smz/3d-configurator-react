@@ -4,7 +4,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
 import Model from "./Model";
 
-const modelsPath = process.env.REACT_APP_API_URL + "api/models/";
+import { MODEL_PATH } from "../../../constants/SceneConstants";
 
 export default class Scene {
   constructor() {
@@ -27,7 +27,7 @@ export default class Scene {
   }
 
   loadModel = modelName => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const models = this.models.children;
 
       let newModel = true;
@@ -42,7 +42,7 @@ export default class Scene {
       });
 
       if (newModel) {
-        this.loader.load(modelsPath + modelName + "/001.fbx", object => {
+        this.loader.load(MODEL_PATH + modelName + "/001.fbx", object => {
           object.name = modelName;
           this.models.add(object);
           this.currentModel.setObject(object);

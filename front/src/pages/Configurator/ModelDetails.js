@@ -27,13 +27,13 @@ function ModelDetails(props) {
                   name="texture"
                   id={`texture-${texture.ref}`}
                   defaultValue={`texture-${texture.ref}`}
-                  onChange={() => onTextureChange(texture.ref)}
                 />
                 <label htmlFor={`texture-${texture.ref}`} className="model-details__texture-thumb">
                   <img
                     src={process.env.REACT_APP_API_URL + `api/textures/${texture.ref}-thmb.png`}
                     alt={`Coloris ${texture.name}`}
                     title={texture.name}
+                    onClick={() => onTextureChange(texture.ref)}
                   />
                 </label>
               </React.Fragment>

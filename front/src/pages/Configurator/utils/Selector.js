@@ -64,7 +64,9 @@ export default class Selector {
 
   toggleHighlight(material) {
     if (material) {
-      material.opacity = material.opacity < DEFAULT_OPACITY ? DEFAULT_OPACITY : INTERSECT_OPACITY;
+      if (!material.blinking) {
+        material.opacity = material.opacity < DEFAULT_OPACITY ? DEFAULT_OPACITY : INTERSECT_OPACITY;
+      }
       material.emissiveIntensity =
         material.emissiveIntensity === INTERSECT_EMISSIVE_INTENSITY
           ? DEFAULT_EMISSIVE_INTENSITY
@@ -84,17 +86,19 @@ export default class Selector {
       this.scene.currentModel.selectedMaterials = [material];
     }
 
-    let delta = -0.05;
+    let delta = -0.09;
     const blinking = setInterval(() => {
+      material.blinking = true;
       material.opacity += delta;
       if (1 - material.opacity < 0.001 || material.opacity - SELECT_OPACITY < 0.001) {
         delta *= -1;
       }
-    }, 17);
+    }, 40);
 
     setTimeout(() => {
       clearInterval(blinking);
       material.opacity = material === this.intersectedMaterial ? INTERSECT_OPACITY : 1;
-    }, 500);
+      material.blinking = false;
+    }, 900);
   }
 }

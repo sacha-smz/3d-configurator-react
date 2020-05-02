@@ -1,41 +1,45 @@
 import * as THREE from "three";
 
-import { DEFAULT_EMISSIVE, DEFAULT_OPACITY } from "../../../constants/SceneConstants";
-
-const texturesPath = process.env.REACT_APP_API_URL + "api/textures/";
+import {
+  TEXTURE_PATH,
+  ENV_MAP_PATH,
+  PART_MATERIAL,
+  VERRE_MATERIAL,
+  METAL_MATERIAL,
+  DISPLAY_MATERIAL,
+  DEFAULT_TEXTURE
+} from "../../../constants/SceneConstants";
+import { MODEL_PATH } from "./../../../constants/SceneConstants";
 
 export default class Model {
   constructor() {
     this.object = null;
     this.textureLoader = new THREE.TextureLoader();
-    this.textures = {};
+    this.envMap = new THREE.CubeTextureLoader()
+      .setPath(ENV_MAP_PATH)
+      .load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
+    this.textures = new Map();
     this.selectedMaterials = [];
+
+    [PART_MATERIAL, VERRE_MATERIAL, METAL_MATERIAL].forEach(mtl => {
+      mtl.setValues({ envMap: this.envMap });
+    });
   }
 
-  setObject(object) {
+  setObject = object => {
     this.object = object;
 
     if (!this.object.hasOwnProperty("customizableParts")) {
       this.object.customizableParts = [];
       this.object.customizableMaterials = [];
 
-      this.object.children.forEach(object => {
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
-        const customizableMaterials = materials.filter(material => material.name.includes("part"));
-        for (const material of customizableMaterials) {
-          material.transparent = 1;
-          material.opacity = DEFAULT_OPACITY;
-          material.emissive = DEFAULT_EMISSIVE;
-        }
-        if (customizableMaterials.length) {
-          this.object.customizableParts.push(object);
-          this.object.customizableMaterials.push(...customizableMaterials);
-        }
+      this.object.children.forEach(child => {
+        this.setEachMaterial(child, this.getRightMaterial);
       });
     }
 
     this.selectedMaterials = [...this.object.customizableMaterials];
-  }
+  };
 
   applyTexture = ref => {
     if (this.object === null) {
@@ -43,7 +47,7 @@ export default class Model {
     }
 
     this.selectedMaterials.forEach(material => {
-      this.getTexture(ref)
+      this.getTexture(TEXTURE_PATH + ref + ".png")
         .then(texture => {
           material.map = texture;
           material.needsUpdate = true;
@@ -54,17 +58,17 @@ export default class Model {
     });
   };
 
-  getTexture(ref) {
+  getTexture = path => {
     return new Promise((resolve, reject) => {
-      if (ref in this.textures) {
-        return resolve(this.textures[ref]);
+      if (this.textures.has(path)) {
+        return resolve(this.textures.get(path));
       }
 
       this.textureLoader.load(
-        texturesPath + ref + ".png",
+        path,
         texture => {
-          this.textures[ref] = texture;
-          resolve(this.textures[ref]);
+          this.textures.set(path, texture);
+          resolve(this.textures.get(path));
         },
         undefined,
         err => {
@@ -72,5 +76,51 @@ export default class Model {
         }
       );
     });
+  };
+
+  setEachMaterial(object, setter) {
+    if (Array.isArray(object.material)) {
+      object.material.forEach((material, i) => {
+        setter(object, material).then(mtl => {
+          object.material[i] = mtl ?? material;
+        });
+      });
+    } else {
+      setter(object, object.material).then(mtl => {
+        object.material = mtl ?? object.material;
+      });
+    }
   }
+
+  getRightMaterial = (obj, material) => {
+    return new Promise(resolve => {
+      if (material.name.includes("part_")) {
+        const mtl = PART_MATERIAL.clone();
+        mtl.name = material.name;
+        this.object.customizableParts.push(obj);
+        this.object.customizableMaterials.push(mtl);
+        this.getTexture(TEXTURE_PATH + DEFAULT_TEXTURE + ".png").then(texture => {
+          mtl.map = texture;
+          mtl.needsUpdate = true;
+          resolve(mtl);
+        });
+      } else if (material.name.includes("verre_")) {
+        obj.renderOrder = 999;
+        const mtl = VERRE_MATERIAL.clone();
+        mtl.name = material.name;
+        resolve(mtl);
+      } else if (material.name === "metal") {
+        resolve(METAL_MATERIAL);
+      } else if (material.name === "plateau") {
+        const mtl = DISPLAY_MATERIAL.clone();
+        this.getTexture(MODEL_PATH + this.object.name + "/plateau.png").then(texture => {
+          mtl.map = texture;
+          mtl.needsUpdate = true;
+          resolve(mtl);
+        });
+      } else {
+        obj.visible = false;
+      }
+    });
+  };
 }

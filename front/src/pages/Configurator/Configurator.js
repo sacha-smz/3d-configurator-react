@@ -4,13 +4,14 @@ import httpClient from "axios";
 import Scene from "./utils/Scene";
 import Selector from "./utils/Selector";
 
+import { MODEL_PATH, PART_RANK } from "../../constants/SceneConstants";
+
 import "./Configurator.css";
 
 import Stage from "./Stage";
 import ModelGallery from "./ModelGallery";
 import ModelDetails from "./ModelDetails";
 
-const modelsPath = process.env.REACT_APP_API_URL + "api/models";
 const scene = new Scene();
 const selector = new Selector(scene);
 
@@ -21,7 +22,7 @@ function Configurator() {
 
   useEffect(() => {
     httpClient
-      .get(modelsPath)
+      .get(MODEL_PATH)
       .then(res => {
         setModels(res.data);
       })
@@ -31,8 +32,7 @@ function Configurator() {
   const selectedMaterials = () =>
     scene.currentModel.selectedMaterials
       .map(material => material.name.replace("part_", ""))
-      .sort()
-      .reverse();
+      .sort((a, b) => PART_RANK[a] - PART_RANK[b]);
 
   const useCurrentModel = modelName => {
     setCurrentModel(modelName);
@@ -49,7 +49,7 @@ function Configurator() {
   return (
     <section className="configurator">
       <Stage scene={scene} selector={selector} updateSelection={updateSelection}></Stage>
-      <ModelGallery onModelChange={useCurrentModel} models={models} modelsPath={modelsPath} />
+      <ModelGallery onModelChange={useCurrentModel} models={models} />
       <ModelDetails
         onTextureChange={scene.currentModel.applyTexture}
         model={models.find(model => model.ref === currentModel)}

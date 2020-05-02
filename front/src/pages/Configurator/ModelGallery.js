@@ -2,10 +2,12 @@ import React from "react";
 
 import Round from "../../components/Round";
 
+import { MODEL_PATH } from "../../constants/SceneConstants";
+
 import "./ModelGallery.css";
 
 function ModelGallery(props) {
-  const { models, modelsPath, onModelChange } = props;
+  const { models, onModelChange } = props;
 
   return (
     <div className="model-gallery">
@@ -15,7 +17,7 @@ function ModelGallery(props) {
         );
         return (
           <Round key={model._id} type="label" htmlFor={`radio-${model.ref}`} before={modelRadio}>
-            <img src={`${modelsPath}/${model.ref}/${model.ref}.png`} alt={`Modèle ${model.name}`}></img>
+            <img src={`${MODEL_PATH}${model.ref}/${model.ref}.png`} alt={`Modèle ${model.name}`}></img>
           </Round>
         );
       })}

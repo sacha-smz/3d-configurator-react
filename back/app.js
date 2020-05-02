@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
-app.use(/^\/api\/(?:models|textures)\/(?:\w+\/)?\w+(?:-thmb)?\.(?:png|fbx)$/, cors(), fileController.serve);
+app.use(/^\/api\/(?:models|textures|envmap)\/(?:\w+\/)?\w+(?:-thmb)?\.(?:png|fbx)$/, cors(), fileController.serve);
 
 app.use("/api/models", cors(), modelsRouter);
 
