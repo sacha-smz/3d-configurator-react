@@ -6,8 +6,9 @@ function AdminNav() {
   const links = [
     { url: "/", label: <i className="fas fa-home"></i> },
     { url: "/admin/frames", label: "Montures" },
-    { url: "/admin/textures", label: "Textures" }
-  ].map((link) => (
+    { url: "/admin/textures", label: "Textures" },
+    { url: "/admin/lenses", label: "Verres" }
+  ].map(link => (
     <li key={link.url} className={link.label === currentDomain ? "active" : ""}>
       <a href={link.url}>{link.label}</a>
     </li>

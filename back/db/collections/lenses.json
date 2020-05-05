@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5eb19fc3efb369054a8570c2"},"ref":"gris","name":"Gris","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5eb19fe1efb369054a8570c3"},"ref":"brun","name":"Brun","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5eb19fefefb369054a8570c4"},"ref":"g15","name":"Gris-Vert","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5eb1a013efb369054a8570c5"},"ref":"gris_deg","name":"Dégradé gris","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5eb1a02eefb369054a8570c6"},"ref":"brun_deg","name":"Dégradé brun","__v":{"$numberInt":"0"}}

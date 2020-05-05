@@ -24,5 +24,13 @@ block content
     #available-textures
       each availableTexture in availableTextures
         a(href=`/admin/frames/${frame.ref}/texture/${availableTexture._id}`)= availableTexture.name
+    
+    #frame-lenses
+      each lens in frame.lenses
+        a(href=`/admin/frames/${frame.ref}/lens/${lens._id}`)= lens.name
+
+    #available-lenses
+      each availableLens in availableLenses
+        a(href=`/admin/frames/${frame.ref}/lens/${availableLens._id}`)= availableLens.name
 
 

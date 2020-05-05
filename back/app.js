@@ -11,6 +11,7 @@ const fileController = require("./controllers/api/file-controller");
 
 const framesRouter = require("./routes/admin/frame-routes");
 const texturesRouter = require("./routes/admin/texture-routes");
+const lensesRouter = require("./routes/admin/lens-routes");
 
 mongoose
   .connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, {
@@ -38,5 +39,6 @@ app.use("/api/models", cors(), modelsRouter);
 
 app.use("/admin/frames", framesRouter);
 app.use("/admin/textures", texturesRouter);
+app.use("/admin/lenses", lensesRouter);
 
 module.exports = app;

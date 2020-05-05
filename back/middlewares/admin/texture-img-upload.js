@@ -1,19 +1,21 @@
 const fs = require("fs");
 const multer = require("multer");
 
-module.exports = (req, res, next) => {
+module.exports = dir => (req, res, next) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "tmp/assets/textures");
+      cb(null, "tmp/assets/" + dir);
     }
   });
 
   const fileFilter = (req, file, cb) => {
-    const acceptFile = ["image/jpeg", "	image/png"].includes(file.mimetype);
-    cb(null, acceptFile);
+    if (["image/jpeg", "image/png"].includes(file.mimetype)) {
+      return cb(null, true);
+    }
+    return cb(new Error("Le format du fichier est incompatible"));
   };
 
-  const upload = multer({ storage }).single("img");
+  const upload = multer({ storage, fileFilter }).single("img");
 
   upload(req, res, err => {
     if (err) {

@@ -11,6 +11,7 @@ const validResult = validationResult.withDefaults({
 
 const Frame = require("../../models/frame");
 const Texture = require("../../models/texture");
+const Lens = require("../../models/lens");
 
 exports.index = (req, res) => {
   Frame.find()
@@ -74,18 +75,27 @@ exports.create = (req, res, next) => {
 exports.get = (req, res) => {
   Frame.findOne({ ref: req.params.ref })
     .populate("textures")
+    .populate("lenses")
     .then(frame => {
       Texture.find().then(textures => {
-        let errors = null;
-        if (req.query.err) {
-          errors = JSON.parse(req.query.err);
-        }
-
         const availableTextures = textures.filter(
           texture => !frame.textures.some(frameTexture => frameTexture.ref == texture.ref)
         );
+        Lens.find().then(lenses => {
+          const availableLenses = lenses.filter(lens => !frame.lenses.some(frameLens => frameLens.ref == lens.ref));
 
-        res.render("frames/update", { frame, availableTextures, errors, success: req.query.success });
+          let errors = null;
+          if (req.query.err) {
+            errors = JSON.parse(req.query.err);
+          }
+          res.render("frames/update", {
+            frame,
+            availableTextures,
+            availableLenses,
+            errors,
+            success: req.query.success
+          });
+        });
       });
     })
     .catch(err => {
@@ -116,6 +126,14 @@ exports.update = (req, res) => {
 exports.addTexture = (req, res) => {
   Texture.findById(req.params.id).then(texture => {
     Frame.findOneAndUpdate({ ref: req.params.ref }, { $addToSet: { textures: texture._id } }).then(frame => {
+      res.redirect(`/admin/frames/${frame.ref}`);
+    });
+  });
+};
+
+exports.addLens = (req, res) => {
+  Lens.findById(req.params.id).then(lens => {
+    Frame.findOneAndUpdate({ ref: req.params.ref }, { $addToSet: { lenses: lens._id } }).then(frame => {
       res.redirect(`/admin/frames/${frame.ref}`);
     });
   });

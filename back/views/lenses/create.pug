@@ -1,0 +1,13 @@
+extends ../layouts/admin.pug
+
+block content
+  #lens-create-form
+  if errors
+    div
+      each error in errors
+        p #{error.message}
+  if success
+    div= success
+
+block scripts
+  script(type="module", src="/javascripts/pages/lenses/CreateForm.js")

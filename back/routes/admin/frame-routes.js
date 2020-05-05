@@ -27,5 +27,6 @@ router
   .post(frameValidator(), frameController.update);
 
 router.get("/:ref/texture/:id", frameController.addTexture);
+router.get("/:ref/lens/:id", frameController.addLens);
 
 module.exports = router;
