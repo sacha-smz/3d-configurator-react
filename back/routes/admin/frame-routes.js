@@ -20,11 +20,7 @@ router
   .get(frameController.showCreateForm)
   .post(frameFilesUpload, frameValidator(), frameController.create);
 
-// prettier-ignore
-router
-  .route("/:ref")
-  .get(frameController.get)
-  .post(frameValidator(), frameController.update);
+router.route("/:ref").get(frameController.get).post(frameValidator(), frameController.update);
 
 router.get("/:ref/texture/:id", frameController.addTexture);
 router.get("/:ref/lens/:id", frameController.addLens);

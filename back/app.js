@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const modelsRouter = require("./routes/api/model-routes");
 const fileController = require("./controllers/api/file-controller");
@@ -24,18 +25,27 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée"));
 
 const app = express();
-app.set("views", "./views");
-app.set("view engine", "pug");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static("public"));
+
+app.set("views", path.resolve("views"));
+app.set("view engine", "ejs");
+
+app.use(express.static(path.resolve("public")));
 
 app.use(/^\/api\/(?:models|textures|envmap)\/(?:\w+\/)?\w+(?:-thmb)?\.(?:png|fbx)$/, cors(), fileController.serve);
 
 app.use("/api/models", cors(), modelsRouter);
+
+app.locals.navLinks = [
+  { url: "/", label: "<i class='fas fa-home'></i>" },
+  { url: "/admin/frames", label: "Montures" },
+  { url: "/admin/textures", label: "Textures" },
+  { url: "/admin/lenses", label: "Verres" }
+];
 
 app.use("/admin/frames", framesRouter);
 app.use("/admin/textures", texturesRouter);

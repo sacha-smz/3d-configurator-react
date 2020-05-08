@@ -1,0 +1,46 @@
+<%- include("../layouts/header"); %>
+
+<% if(locals.frame) { %>
+<div>
+  <img src="/api/models/<%= frame.ref %>/<%= frame.ref %>.png" alt="Monture <%= frame.name %>"
+    title="<%= frame.name %>">
+</div>
+
+<form action="/admin/frames/<%= frame.ref %>" method="POST">
+  <input type="hidden" name="ref" value="<%= frame.ref %>">
+  <input type="text" name="name" value="<%= frame.name %>">
+  <input type="text" name="price" value="<%= frame.price %>">
+  <button>Valider</button>
+</form>
+
+<div>
+<% for (const texture of frame.textures) { %>
+  <a href="/admin/frames/<%= frame.ref %>/texture/<%= texture._id %>"><%= texture.name %></a>
+<% } %>
+</div>
+
+<div>
+  <% if(locals.availableTextures && availableTextures.length) {
+    for (const texture of availableTextures) { %>
+    <a href="/admin/frames/<%= frame.ref %>/texture/<%= texture._id %>"><%= texture.name %></a>
+    <% }
+  } %>
+</div>
+
+<div>
+  <% for (const lens of frame.lenses) { %>
+    <a href="/admin/frames/<%= frame.ref %>/lens/<%= lens._id %>"><%= lens.name %></a>
+  <% } %>
+</div>
+
+<div>
+  <% if(locals.availableLenses && availableLenses.length) {
+    for (const lens of availableLenses) { %>
+    <a href="/admin/frames/<%= frame.ref %>/lens/<%= lens._id %>"><%= lens.name %></a>
+    <% }
+  } %>
+</div>
+
+<% } %>
+
+<%- include("../layouts/footer"); %>

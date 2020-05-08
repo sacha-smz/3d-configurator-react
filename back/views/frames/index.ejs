@@ -1,0 +1,18 @@
+<%- include("../layouts/header"); %>
+
+<% if (locals.frames && frames.length) { %>
+<ul>
+  <% for (const frame of frames) { %>
+  <li>
+    <a href="/admin/frames/<%= frame.ref %>">
+      <img src="/api/models/<%= frame.ref %>/<%= frame.ref %>.png" alt="Monture <%= frame.name %>"
+        title="<%= frame.name %>">
+    </a>
+  </li>
+  <% } %>
+</ul>
+<% } else { %>
+<h2>Auncun modèle à affiche</h2>
+<% } %>
+
+<%- include("../layouts/footer"); %>

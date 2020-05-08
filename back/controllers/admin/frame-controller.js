@@ -20,7 +20,7 @@ exports.index = (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(404).render("frames/index", { error: `Une erreur est survenue : ${err.message}` });
+      res.status(404).render("frames/index", { errors: [{ message: `Une erreur est survenue : ${err.message}` }] });
     });
 };
 
@@ -125,16 +125,26 @@ exports.update = (req, res) => {
 
 exports.addTexture = (req, res) => {
   Texture.findById(req.params.id).then(texture => {
-    Frame.findOneAndUpdate({ ref: req.params.ref }, { $addToSet: { textures: texture._id } }).then(frame => {
-      res.redirect(`/admin/frames/${frame.ref}`);
+    Frame.findOne({ ref: req.params.ref }).then(frame => {
+      const update = frame.textures.find(textureId => textureId.equals(texture._id))
+        ? { $pull: { textures: texture._id } }
+        : { $addToSet: { textures: texture._id } };
+      frame.updateOne(update).then(() => {
+        res.redirect(`/admin/frames/${frame.ref}`);
+      });
     });
   });
 };
 
 exports.addLens = (req, res) => {
   Lens.findById(req.params.id).then(lens => {
-    Frame.findOneAndUpdate({ ref: req.params.ref }, { $addToSet: { lenses: lens._id } }).then(frame => {
-      res.redirect(`/admin/frames/${frame.ref}`);
+    Frame.findOne({ ref: req.params.ref }).then(frame => {
+      const update = frame.lenses.find(lensId => lensId.equals(lens._id))
+        ? { $pull: { lenses: lens._id } }
+        : { $addToSet: { lenses: lens._id } };
+      frame.updateOne(update).then(() => {
+        res.redirect(`/admin/frames/${frame.ref}`);
+      });
     });
   });
 };

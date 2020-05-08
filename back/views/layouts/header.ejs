@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="/stylesheets/destyle.css" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+
+  <title>3d-configurator Admin</title>
+
+  <script src="https://kit.fontawesome.com/1999993b28.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="root">
+    <nav id="admin-nav" %>">
+    <% if (locals.navLinks && navLinks.length) { %>
+      <ul>
+      <% for (const link of navLinks) { %>
+      <li class="<%= link.label === locals.currentDomain ? 'active' : '' %>">
+        <a href="<%= link.url%>"><%- link.label %></a>
+      </li>
+      <% } %>
+      </ul>
+    <% } %>
+    </nav>
+
+    <main>
+
+    <% if (locals.errors && errors.length) {
+      for (const error of errors) { %>
+      <p><%= error.message %></p>
+      <% }
+    } %>
+
+      <% if (locals.success) { %>
+      <p><%= success %></p>
+      <% } %>
