@@ -2,6 +2,7 @@ import * as THREE from "three";
 
 import {
   TEXTURE_PATH,
+  LENS_PATH,
   ENV_MAP_PATH,
   PART_MATERIAL,
   VERRE_MATERIAL,
@@ -32,6 +33,7 @@ export default class Model {
     if (!this.object.hasOwnProperty("customizableParts")) {
       this.object.customizableParts = [];
       this.object.customizableMaterials = [];
+      this.object.lensMaterials = [];
 
       this.object.children.forEach(child => {
         this.setEachMaterial(child, this.getRightMaterial);
@@ -47,15 +49,36 @@ export default class Model {
     }
 
     this.selectedMaterials.forEach(material => {
-      this.getTexture(TEXTURE_PATH + ref + ".png")
-        .then(texture => {
-          material.map = texture;
-          material.needsUpdate = true;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.updateMaterialMap(material, TEXTURE_PATH + ref + ".png");
     });
+  };
+
+  applyLens = ref => {
+    if (this.object === null) {
+      return;
+    }
+    this.object.currentLens = ref;
+    this.object.lensMaterials.forEach(material => {
+      if (ref === "blanc") {
+        material.transparency = VERRE_MATERIAL.transparency;
+        material.map = null;
+        material.needsUpdate = true;
+      } else {
+        material.transparency = 0.075;
+        this.updateMaterialMap(material, LENS_PATH + ref + ".png");
+      }
+    });
+  };
+
+  updateMaterialMap = (mtl, path) => {
+    this.getTexture(path)
+      .then(texture => {
+        mtl.map = texture;
+        mtl.needsUpdate = true;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   getTexture = path => {
@@ -108,6 +131,7 @@ export default class Model {
         obj.renderOrder = 999;
         const mtl = VERRE_MATERIAL.clone();
         mtl.name = material.name;
+        this.object.lensMaterials.push(mtl);
         resolve(mtl);
       } else if (material.name === "metal") {
         resolve(METAL_MATERIAL);

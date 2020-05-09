@@ -4,6 +4,33 @@
   height: 100vh;
   min-height: 40rem;
   color: #282828;
+  text-align: center;
+}
+#top h1#home-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1em 0;
+}
+#top a#cta {
+  display: inline-block;
+  background-color: #b0aac0;
+  color: #f0efef;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 1.2em;
+  padding: 0.8em 1.8em;
+  border-radius: 2.4em;
+  transition: transform 60ms;
+  box-shadow: 0.06rem 0.12rem 0.36rem #a0a0a0;
+}
+#top a#cta:hover {
+  background-color: #8980a1;
+  color: #f3f2f2;
+  transform: scale(1.08);
+}
+#top a#cta:active {
+  transform: scale(0.98);
+  transition: 0s;
 }
 
 /*# sourceMappingURL=App.css.map */

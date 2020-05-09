@@ -16,7 +16,7 @@
   font-size: 1.2em;
 }
 .model-details__parts {
-  margin-top: 2em;
+  margin: 2em 0 0.8em;
 }
 .model-details__parts span {
   font-weight: bold;
@@ -29,12 +29,13 @@
   white-space: nowrap;
   overflow-y: hidden;
   padding: 0.6em;
-  margin: 1em 0;
 }
-.model-details__texture-thumbs input[name=texture] {
+.model-details__texture-thumbs input[name=texture],
+.model-details__texture-thumbs input[name=lens] {
   display: none;
 }
-.model-details__texture-thumbs input[name=texture]:checked + label {
+.model-details__texture-thumbs input[name=texture]:checked + label,
+.model-details__texture-thumbs input[name=lens]:checked + label {
   box-shadow: 0.088rem 0.088rem 0.528rem 0.088rem #cedde4, -0.088rem 0.088rem 0.528rem 0.088rem #cedde4, -0.088rem -0.088rem 0.528rem 0.088rem #cedde4, 0.088rem -0.088rem 0.528rem 0.088rem #cedde4;
 }
 .model-details__texture-thumb {

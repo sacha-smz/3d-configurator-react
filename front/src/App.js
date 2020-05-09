@@ -20,7 +20,13 @@ function App() {
           </Route>
 
           <Route path="/">
-            <h1>Home</h1>
+            <h1 id="home-header">Configurateur 3D</h1>
+            <p>SandBox pour la mise en pratique des apprentissages sur la MERN stack</p>
+            <p>
+              <a id="cta" href="/3d-configurator">
+                Essayez-maintenant
+              </a>
+            </p>
           </Route>
         </Switch>
       </div>

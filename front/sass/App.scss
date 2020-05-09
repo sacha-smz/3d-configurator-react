@@ -1,4 +1,5 @@
 @use "./utils/functions" as f;
+@use "./utils/mixins" as m;
 
 #top {
   display: flex;
@@ -6,4 +7,36 @@
   height: 100vh;
   min-height: 40rem;
   color: f.getColor("main", "default");
+  text-align: center;
+
+  h1#home-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1em 0;
+  }
+
+  a#cta {
+    display: inline-block;
+    background-color: f.getColor("main", "delta");
+    color: f.getColor("main", "alpha");
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 1.2em;
+    padding: 0.8em 1.8em;
+    border-radius: 2.4em;
+    transition: transform 60ms;
+
+    @include m.box-shadow(0.75);
+
+    &:hover {
+      background-color: f.getDarkColor("main", "delta");
+      color: f.getLightColor("main", "alpha");
+      transform: scale(1.08);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      transition: 0s;
+    }
+  }
 }

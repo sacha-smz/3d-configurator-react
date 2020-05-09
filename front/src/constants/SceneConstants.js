@@ -25,7 +25,7 @@ export const VERRE_MATERIAL = new THREE.MeshPhysicalMaterial({
   opacity: DEFAULT_OPACITY,
   clearcoat: 1,
   reflectivity: 1,
-  transparency: 0.65
+  transparency: 0.7
 });
 
 export const METAL_MATERIAL = new THREE.MeshStandardMaterial({
@@ -37,6 +37,7 @@ export const METAL_MATERIAL = new THREE.MeshStandardMaterial({
 export const DISPLAY_MATERIAL = new THREE.MeshBasicMaterial({ transparent: true });
 
 export const TEXTURE_PATH = process.env.REACT_APP_API_URL + "api/textures/";
+export const LENS_PATH = process.env.REACT_APP_API_URL + "api/lenses/";
 export const ENV_MAP_PATH = process.env.REACT_APP_API_URL + "api/envmap/";
 export const MODEL_PATH = process.env.REACT_APP_API_URL + "api/models/";
 

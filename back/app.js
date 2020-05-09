@@ -36,7 +36,11 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.resolve("public")));
 
-app.use(/^\/api\/(?:models|textures|envmap)\/(?:\w+\/)?\w+(?:-thmb)?\.(?:png|fbx)$/, cors(), fileController.serve);
+app.use(
+  /^\/api\/(?:models|textures|envmap|lenses)\/(?:\w+\/)?\w+(?:-thmb)?\.(?:png|fbx)$/,
+  cors(),
+  fileController.serve
+);
 
 app.use("/api/models", cors(), modelsRouter);
 

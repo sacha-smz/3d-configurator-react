@@ -19,6 +19,7 @@ function Configurator() {
   const [models, setModels] = useState([]);
   const [currentModel, setCurrentModel] = useState(null);
   const [selection, setSelection] = useState([]);
+  const [selectedLens, setSelectedLens] = useState("blanc");
 
   useEffect(() => {
     httpClient
@@ -38,6 +39,7 @@ function Configurator() {
     setCurrentModel(modelName);
     scene.loadModel(modelName).then(() => {
       setSelection(selectedMaterials);
+      setSelectedLens(scene.currentModel.object.currentLens || "blanc");
     });
   };
 
@@ -46,14 +48,21 @@ function Configurator() {
     setSelection(selectedMaterials);
   };
 
+  const onLensChange = ref => {
+    scene.currentModel.applyLens(ref);
+    setSelectedLens(ref);
+  };
+
   return (
     <section className="configurator">
       <Stage scene={scene} selector={selector} updateSelection={updateSelection}></Stage>
       <ModelGallery onModelChange={useCurrentModel} models={models} />
       <ModelDetails
         onTextureChange={scene.currentModel.applyTexture}
+        onLensChange={onLensChange}
         model={models.find(model => model.ref === currentModel)}
         selection={selection}
+        selectedLens={selectedLens}
       />
     </section>
   );
